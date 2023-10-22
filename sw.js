@@ -1,7 +1,7 @@
 self.addEventListener("push", (event) => {
     const notification = event.data.json();
 
-    event.waitUntil(self.ServiceWorkerRegistration.showNotification(notification.title , {
+    event.waitUntil(self.registration.showNotification(notification.title , {
         body:notification.body,
         icon:"icon.png",
         data:{
