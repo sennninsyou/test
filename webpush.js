@@ -8,14 +8,16 @@ self.addEventListener('load', async () => {
 
 //Push通知を許可する仕組み
 async function allowWebPush() {
-    Notification.requestPermission()
-        .then(permission => {
-            if (permission === 'denied') {
-                alert('Push通知が拒否されているようです。ブラウザの設定からPush通知を有効化してください');
-            } else if (permission === 'granted') {
-                alert('すでにWebPushを許可済みです');
-            }
-        });
+    if ('Notification' in window) {
+        let permission = Notification.permission;
+
+        if (permission === 'denied') {
+            alert('Push通知が拒否されているようです。ブラウザの設定からPush通知を有効化してください');
+            return false;
+        } else if (permission === 'granted') {
+            alert('すでにWebPushを許可済みです');
+            return false;
+        }
     }
     // 取得したPublicKey
     const appServerKey = 'BC1VHFZkXPFeQxUZcPFaKmB0ybdEoJDP0NtRpRQcm9r1wDs59EP6HRxkBPmTqM5-I7YqPvuXh5WA2qVVozLsw4k';
