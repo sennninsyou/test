@@ -19,7 +19,11 @@
 
             function enableNotif(){
                 Notification.requestPermission().then((permission)=> {
-                    if (permission === 'granted'){
+                    if (permission === 'denied') {
+                        alert('Push通知が拒否されているようです。ブラウザの設定からPush通知を有効化してください');
+                        return false;
+                    } else if (permission === 'granted') {
+                        alert('すでにWebPushを許可済みです');
                         navigator.serviceWorker.ready.then((sw)=>{
                             sw.pushManager.subscribe({
                                 userVisibleOnly: true,
