@@ -3,9 +3,9 @@ require_once("vendor/autoload.php");
 use Minishlink\WebPush\WebPush;
 use Minishlink\WebPush\Subscription;
 
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-    $subscription = $_POST["subscription"];
+$subscription = json_decode(file_get_contents('php://input'), true);
 
+if(!empty($subscription)){
     $auth = [
         'VAPID' => [
             'subject' => 'https://sennninsyou.github.io/test/', // can be a mailto: or your website address
@@ -16,6 +16,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $webPush = new WebPush($auth);
 
-    $report = $webPush->sendOneNotification(Subscription::create($subscription,true), '{"title":"通知テスト", "body":"これはPush通知のテストです。", "url":"./"}', ['TTL' => 5000]);
+    $report = $webPush->sendOneNotification(Subscription::create($subscription), '{"title":"通知テスト", "body":"これはPush通知のテストです。", "url":"./"}', ['TTL' => 5000]);
+}else{
+    echo "false";
 }
 ?>
