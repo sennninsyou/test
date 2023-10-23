@@ -29,6 +29,7 @@
                                 userVisibleOnly: true,
                                 applicationServerKey:"BC1VHFZkXPFeQxUZcPFaKmB0ybdEoJDP0NtRpRQcm9r1wDs59EP6HRxkBPmTqM5-I7YqPvuXh5WA2qVVozLsw4k"
                             }).then((subscription)=>{
+                                document.querySelector('input[type="hidden"]').value = subscription;
                                 console.log(JSON.stringify(subscription));
                             });
                         });
@@ -37,5 +38,9 @@
             }
         </script>
         <button onclick="enableNotif()">Enable Notif</button>
+        <form action="send_test.php" method="post">
+            <input type="hidden" name="subscription" value="">
+            <input type="submit" value="Send Push">
+        </form>
     </body>
 </html>

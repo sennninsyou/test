@@ -18,3 +18,4 @@ $report = $webPush->sendOneNotification(
     , '{"title":"通知テスト", "body":"これはPush通知のテストです。", "url":"./"}', ['TTL' => 5000]);
 
     print_r($report);
+?>
